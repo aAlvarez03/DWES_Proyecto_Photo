@@ -26,6 +26,7 @@
    </nav>
 <!-- End of Navigation Bar -->
 
+
 <!-- Principal Content Start -->
    <div id="contact">
    	  <div class="container">
@@ -33,27 +34,50 @@
        	   <h1>CONTACT US</h1>
        	   <hr>
        	   <p>Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-	       <form class="form-horizontal">
+
+		   <?php 
+				if(!empty($array_dats)){
+					echo "<div class='alert alert-info'>";
+					echo "<ul>";
+						foreach($array_dats as $dat){
+							echo "<li>".$dat."</li>";
+						}
+					echo "</ul>";
+					echo "</div>";
+				}
+
+				if(!empty($array_error)){
+					echo "<div class='alert alert-danger'>";
+					echo "<ul>";
+						foreach($array_error as $error){
+							echo "<li>".$error."</li>";
+						}
+					echo "</ul>";
+					echo "</div>";
+				}
+			?>
+	       <form class="form-horizontal" method="post">
+			
 	       	  <div class="form-group">
 	       	  	<div class="col-xs-6">
-	       	  	    <label class="label-control">First Name</label>
-	       	  		<input class="form-control" type="text">
+	       	  	    <label for="firstName" class="label-control">First Name</label>
+	       	  		<input name="firstName" class="form-control" type="text" >
 	       	  	</div>
 	       	  	<div class="col-xs-6">
-	       	  	    <label class="label-control">Last Name</label>
-	       	  		<input class="form-control" type="text">
+	       	  	    <label for="lastName" class="label-control">Last Name</label>
+	       	  		<input name="lastName" class="form-control" type="text">
 	       	  	</div>
 	       	  </div>
 	       	  <div class="form-group">
 	       	  	<div class="col-xs-12">
-	       	  		<label class="label-control">Email</label>
-	       	  		<input class="form-control" type="text">
+	       	  		<label for="mail" class="label-control">Email</label>
+	       	  		<input name="mail" class="form-control" type="email" >
 	       	  	</div>
 	       	  </div>
 	       	  <div class="form-group">
 	       	  	<div class="col-xs-12">
-	       	  		<label class="label-control">Subject</label>
-	       	  		<input class="form-control" type="text">
+	       	  		<label for="subject" class="label-control">Subject</label>
+	       	  		<input name="subject" class="form-control" type="text" >
 	       	  	</div>
 	       	  </div>
 	       	  <div class="form-group">
