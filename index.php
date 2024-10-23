@@ -8,7 +8,6 @@
         array_push($imagenes, $imagen);
     }
 
-    shuffle($imagenes);
 
     require 'views/index.view.php';
 ?>

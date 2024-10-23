@@ -1,8 +1,9 @@
 
 <!-- First Category pictures -->
-    <?php foreach ($imagenes as $imagen):?>
-<div id="category1" class="tab-pane active" >
-    <div class="row popup-gallery">
+    <?php
+        shuffle($imagenes); 
+        foreach ($imagenes as $imagen):
+    ?>
         <!-- Primera imagen -->
         <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="sol">
@@ -42,8 +43,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
     <?php endforeach; ?>
     <nav class="text-center">
         <ul class="pagination">

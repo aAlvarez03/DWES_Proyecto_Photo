@@ -64,7 +64,9 @@
 
         <!-- First Category pictures -->
            <div id="category1" class="tab-pane active" >
+            <div class="row popup-gallery">
               <?php include __DIR__.'/partials/imagegallery.part.php' ?>
+            </div>
            </div>
 
            <?php 
@@ -76,13 +78,17 @@
 
         <!--second category pictures -->
            <div id="category2" class="tab-pane">
-           <?php include __DIR__.'/partials/imagegallery.part.php' ?>
+           <div class="row popup-gallery">
+              <?php include __DIR__.'/partials/imagegallery.part.php' ?>
+            </div>
            </div>
         <!-- End of second category pictures -->
 
         <!-- Third Category Pictures -->
            <div id="category3" class="tab-pane">
-           <?php include __DIR__.'/partials/imagegallery.part.php' ?>
+           <div class="row popup-gallery">
+              <?php include __DIR__.'/partials/imagegallery.part.php' ?>
+            </div>
            </div>
         <!-- Third Category Pictures -->
 
