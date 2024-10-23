@@ -1,5 +1,6 @@
 <?php
     require 'entities/imagenGaleria.class.php';
+    require 'utils/utils.php';
 
     $imagenes = [];
 

@@ -1,4 +1,6 @@
 <?php
+	require 'utils/utils.php';
+	
 	$array_error = [];
 	$array_dats = [];
 
