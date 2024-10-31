@@ -44,12 +44,6 @@
               <?php include __DIR__.'/partials/imagegallery.part.php' ?>
             </div>
            </div>
-
-           <?php 
-            $category;
-            $isActive;           
-           ?>
-
         <!-- End of First category pictures -->
 
         <!--second category pictures -->
@@ -97,7 +91,7 @@
           </p>
           <h4>Our Main Partners</h4>
           <hr>
-          <div class="text-muted text-left">
+          <!-- <div class="text-muted text-left">
             <ul class="list-inline">
               <li><img src="images/index/log2.jpg" alt="logo"></li>
               <li>First Partner Name</li>
@@ -110,7 +104,8 @@
               <li><img src="images/index/log3.jpg" alt="logo"></li>
               <li>Third Partner Name</li>
             </ul>
-          </div>
+          </div> -->
+          <?php include __DIR__.'/partials/associates.part.php' ?>
         </div>
         </div>
       </div>

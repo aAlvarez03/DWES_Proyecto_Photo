@@ -1,6 +1,6 @@
 <?php
 	require 'utils/utils.php';
-	require 'utils/File.class.php';
+	require 'entities/File.class.php';
     require 'entities/imagenGaleria.class.php';
 
     // Array para guardar los mensajes de errores

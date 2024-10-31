@@ -1,5 +1,6 @@
 <?php
     require __DIR__.'/../exceptions/FileException.class.php';
+    require __DIR__.'/../utils/strings.php';
     class File
     {
         private $file;
@@ -24,24 +25,13 @@
                 throw new FileException('Debes seleccionar un fichero');
             }
 
+
             //Verificamos si ha habido algún error durante la subida del fichero
             if($this->file['error'] !== UPLOAD_ERR_OK){
                 //Dentro del if verificamos de que tipo ha sido el error
-                switch ($this->file['error']){
-                    case UPLOAD_ERR_INI_SIZE:
-                    case UPLOAD_ERR_FORM_SIZE:{
-                        throw new FileException('El fichero es demasiado grande');
-                        break;
-                    }
-                    case UPLOAD_ERR_PARTIAL:{
-                        throw new FileException('No se ha podido subir el fichero completo');
-                        break;
-                    }
-                    default:{
-                        throw new FileException('No se ha podido subir el fichero');
-                        break;
-                    }
-                }
+                $excepcion = ERROR_STRINGS[$this->file['error']] ?? 'No se ha podido subir el fichero';
+
+                throw new FileException($excepcion);
             }
 
             //Comprovamos si el fichero subido es de un tipo de los que tenemos sorportados
@@ -63,16 +53,18 @@
                 throw new FileException('El archivo no se ha subido mediante el formulario');
             }
             //Cargamos el nombre del fichero
-            $this->fileName = $this->file['name']; //nombre original del fichero cuando se subió
-            $ruta = $rutaDestino.$this->fileName; //concateno la rutaDestino con el nombre del fichero
+            $this->fileName = pathinfo($this->file['name'], PATHINFO_FILENAME); // Nombre sin extensión
+            $extension = pathinfo($this->file['name'], PATHINFO_EXTENSION); // Solo la extensión
+            $ruta = $rutaDestino . $this->fileName . '.' . $extension;
 
-            //Comprobamos que la ruta no se corresponda con un fichero ya exista
-            if(is_file($ruta) == true){
-                //No sobreescribo, sino que genero una nueva añadiendo la fecha y hora actual
-                $fechaActual = date('dmYHis');
-                $this->fileName = $this->fileName.'_'.$fechaActual;
-                $ruta = $rutaDestino.$this->fileName; //actualizo la variable de ruta con el nuevo nombre
+            // Generar un número secuencial si el archivo ya existe
+            $contador = 1;
+            while (is_file($ruta)) {
+                // Si existe, no sobreescribo, creo uno nuevo con un numero dependiendo la cantidad de veces que se repite
+                $ruta = $rutaDestino . $this->fileName . '(' . $contador . ')' . '.' . $extension;
+                $contador++;
             }
+
             // Muevo el fichero subido del directorio temporal (viene definido en el php.ini)
             if(move_uploaded_file($this->file['tmp_name'], $ruta) === false){
                 //Devuelve false si no se ha podido mover
@@ -87,8 +79,18 @@
          * @throws FileException
          */
         public function copyFile(string $rutaOrigen, string $rutaDestino){
-            $origen = $rutaOrigen.$this->fileName;
-            $destino = $rutaDestino.$this->fileName;
+            // Cargamos el nombre del fichero tanto en la ruta de origen como destino
+            $this->fileName = pathinfo($this->file['name'], PATHINFO_FILENAME);
+            $extension = pathinfo($this->file['name'], PATHINFO_EXTENSION);
+            $origen = $rutaOrigen.$this->fileName.'.'.$extension;
+            $destino = $rutaDestino.$this->fileName.'.'.$extension;
+
+            // Compruebo si el archivo ya existe en el directorio destino y no sobreescribo, creo uno nuevo con un numero dependiendo la cantidad de veces que se repite.
+            $contador = 1;
+            while (is_file($destino)) {
+                $destino = $rutaDestino . $this->fileName . '(' . $contador . ')' . '.' . $extension;
+                $contador++;
+            }
 
             if(is_file($origen) === false){
                 throw new FileException("No existe el fichero $origen que intentas copiar");

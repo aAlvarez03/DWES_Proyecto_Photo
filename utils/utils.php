@@ -17,4 +17,15 @@
         }
         return false;
     }
+
+    function extraerAleatorios (array $array): array
+    {
+        $aleatorios = array_rand($array, 3);
+
+        $valoresAleatorios = [];
+        foreach($aleatorios as $clave){
+            array_push($valoresAleatorios, $array[$clave]);
+        }
+        return $valoresAleatorios;
+    }
 ?>
